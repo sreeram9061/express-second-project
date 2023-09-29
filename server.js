@@ -15,8 +15,7 @@ const morgan=require("morgan")
 })
  */
 mongoose.connect(
-    process.env.CONN_STR,
-    options
+    process.env.CONN_STR
   )
   .then(()=>console.log('connected'))
   .catch(e=>console.log(e));
