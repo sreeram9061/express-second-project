@@ -8,7 +8,6 @@ const morgan=require("morgan")
 mongoose.connect(process.env.CONN_STR,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
-    useCreateIndex: true,
 }).then((conn)=>{
     console.log("db connection successful")
 }).catch((err)=>{
