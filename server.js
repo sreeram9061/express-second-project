@@ -15,7 +15,10 @@ const morgan=require("morgan")
 })
  */
 mongoose.connect(
-    process.env.CONN_STR
+    process.env.CONN_STR,{
+        bufferMaxEntries: 0, // MongoDB driver buffering
+  bufferCommands: false // Mongoose-specific buffering
+    }
   )
   .then(()=>console.log('connected'))
   .catch(e=>console.log(e));
