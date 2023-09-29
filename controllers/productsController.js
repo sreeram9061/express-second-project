@@ -17,8 +17,7 @@ exports.createProduct=async(req,res)=>{
     }
 }
 
-exports.getProducts=async(req,res)=>{
-
+exports.getProducts= async(req,res)=>{
     try {
         //http://localhost:3000/Product/?ratings[gte]=2.5&price[gte]=5999
         //[gte] graterthan or equal
@@ -75,7 +74,7 @@ exports.getProduct= async (req,res)=>{
 }
 
 exports.updateProduct=async(req,res)=>{
-    try {                                                                        //up. val will return,  //when a prperty will update thattime validators rerun
+    try {                                                                        //up. val will return,  //when a property will update that time validators return
         const products = await Product.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
         res.status(201).json({
             status:"success",
@@ -98,7 +97,7 @@ exports.deleteProduct= async(req,res)=>{
             status:"success",
             data:null
         })
-    } catch (error) {
+    }catch(error){
         res.status(404).json({
             status:"fild",
             message:error.message

@@ -4,15 +4,22 @@ const mongoose=require("mongoose")
 dotenv.config({path:'./config.env'})
 const morgan=require("morgan")
 
-mongoose.connect(
-    process.env.CONN_STR,
-    options,
-    (err) => {
-     if(err) console.log(err) 
-     else console.log("mongdb is connected");
+
+
+const conectMongoDb= async ()=>{
+    try {
+        await mongoose.connect(process.env.CONN_STR,{
+            useNewUrlParser: true, 
+            useUnifiedTopology: true
+        })
+        console.log("db connection successful")
+    } catch (error) {
+        console.log(error)
     }
-  );
-  
+}
+conectMongoDb()
+
+
 
 
 if(process.env.NODE_ENV=="development"){
