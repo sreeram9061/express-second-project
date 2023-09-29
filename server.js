@@ -5,7 +5,7 @@ dotenv.config({path:'./config.env'})
 const morgan=require("morgan")
 
 
-mongoose.connect(process.env.CONN_STR,{
+/* mongoose.connect(process.env.CONN_STR,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
 }).then((conn)=>{
@@ -13,6 +13,13 @@ mongoose.connect(process.env.CONN_STR,{
 }).catch((err)=>{
     console.log(err)
 })
+ */
+mongoose.connect(
+    process.env.CONN_STR,
+    options
+  )
+  .then(()=>console.log('connected'))
+  .catch(e=>console.log(e));
 
 
 if(process.env.NODE_ENV=="development"){
