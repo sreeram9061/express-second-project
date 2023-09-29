@@ -2,11 +2,11 @@ const product=require("../models/productModel")
 
 exports.createProduct=async(req,res)=>{
     try{
-        const product=await product.create(req.body)
+        const cratedProduct=await product.create(req.body)
         res.status(201).json({
             status:"success",
             data:{
-                product,
+                cratedProduct,
             }
         })
     }catch (error) {
@@ -59,11 +59,11 @@ exports.getProducts=async(req,res)=>{
 
 exports.getProduct= async (req,res)=>{
     try {
-        const product= await product.findById(req.params.id)
+        const oneProduct= await product.findById(req.params.id)
         res.status(200).json({
             status:"success",
             data:{
-                product,
+                oneProduct,
             }
         })
     } catch (error) {
