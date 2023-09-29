@@ -75,7 +75,7 @@ exports.getProduct= async (req,res)=>{
 }
 
 exports.updateProduct=async(req,res)=>{
-    try {                                                                        //up. val will return,//when a prperty will update thattime validators rerun
+    try {                                                                        //up. val will return,  //when a prperty will update thattime validators rerun
         const products = await Product.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
         res.status(201).json({
             status:"success",
