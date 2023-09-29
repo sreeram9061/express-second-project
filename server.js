@@ -4,24 +4,15 @@ const mongoose=require("mongoose")
 dotenv.config({path:'./config.env'})
 const morgan=require("morgan")
 
-
-/* mongoose.connect(process.env.CONN_STR,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true,
-}).then((conn)=>{
-    console.log("db connection successful")
-}).catch((err)=>{
-    console.log(err)
-})
- */
 mongoose.connect(
-    process.env.CONN_STR,{
-        bufferMaxEntries: 0, // MongoDB driver buffering
-  bufferCommands: false // Mongoose-specific buffering
+    process.env.CONN_STR,
+    options,
+    (err) => {
+     if(err) console.log(err) 
+     else console.log("mongdb is connected");
     }
-  )
-  .then(()=>console.log('connected'))
-  .catch(e=>console.log(e));
+  );
+  
 
 
 if(process.env.NODE_ENV=="development"){

@@ -1,8 +1,8 @@
-const product=require("../models/productModel")
+const Product=require("../models/productModel")
 
 exports.createProduct=async(req,res)=>{
     try{
-        const cratedProduct=await product.create(req.body)
+        const cratedProduct=await Product.create(req.body)
         res.status(201).json({
             status:"success",
             data:{
@@ -32,7 +32,7 @@ exports.getProducts=async(req,res)=>{
         let queryStr=JSON.stringify(queryData)
         queryStr= queryStr.replace(/\b(gte|gt|lte|lt)\b/g,(match)=>`$${match}`)
         queryItems=JSON.parse(queryStr)
-        let query= product.find(queryItems)
+        let query= Product.find(queryItems)
 
         if(req.query.sort){
                                //&sort=ratings,price
@@ -59,7 +59,7 @@ exports.getProducts=async(req,res)=>{
 
 exports.getProduct= async (req,res)=>{
     try {
-        const oneProduct= await product.findById(req.params.id)
+        const oneProduct= await Product.findById(req.params.id)
         res.status(200).json({
             status:"success",
             data:{
@@ -76,7 +76,7 @@ exports.getProduct= async (req,res)=>{
 
 exports.updateProduct=async(req,res)=>{
     try {                                                                        //up. val will return,  //when a prperty will update thattime validators rerun
-        const products = await product.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
+        const products = await Product.findByIdAndUpdate(req.params.id,req.body,{new:true,runValidators:true})
         res.status(201).json({
             status:"success",
             data:{
@@ -93,7 +93,7 @@ exports.updateProduct=async(req,res)=>{
 
 exports.deleteProduct= async(req,res)=>{
     try {
-        await product.findByIdAndDelete(req.params.id)
+        await Product.findByIdAndDelete(req.params.id)
         res.status(204).json({
             status:"success",
             data:null
