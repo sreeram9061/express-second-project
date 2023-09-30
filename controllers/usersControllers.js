@@ -24,7 +24,7 @@ exports.postNewUser=async(req,res)=>{
             ...req.body,
             image:{
                 data: fs.readFileSync("uploads/"+req.file.filename),
-                contentType:'image/jpg'
+                contentType:'image/png'
             }
         })
         res.status(201).json({
