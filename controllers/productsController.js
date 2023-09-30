@@ -23,7 +23,7 @@ exports.getProducts= async(req,res)=>{
         //[gte] graterthan or equal
         const excludingFields=["sort","page","limit","fields"]
         const queryData={...req.query}
-        
+
         excludingFields.forEach((item)=>{
             if(queryData.hasOwnProperty(item)) delete queryData[item]
         })
@@ -56,7 +56,7 @@ exports.getProducts= async(req,res)=>{
 
         //handle error if skip is graterthan count of collections 
         if(req.query.page){
-            const docs= await Product.countDocuments()
+            const docs= await Product.countDocuments(queryItems)
             if(skip>=docs){
                 throw new Error("data not present")
             }
