@@ -23,24 +23,50 @@ exports.getProducts= async(req,res)=>{
         //[gte] graterthan or equal
         const excludingFields=["sort","page","limit","fields"]
         const queryData={...req.query}
-
+        
         excludingFields.forEach((item)=>{
             if(queryData.hasOwnProperty(item)) delete queryData[item]
         })
 
+        //filtering 
         let queryStr=JSON.stringify(queryData)
-        queryStr= queryStr.replace(/\b(gte|gt|lte|lt)\b/g,(match)=>`$${match}`)
-        queryItems=JSON.parse(queryStr)
-        let query= Product.find(queryItems)
+        queryStr=queryStr.replace(/\b(gte|gt|lte|lt)\b/g,(match)=>`$${match}`)
+        queryItems=JSON.parse(queryStr)           //only given propertees in the select method that will select, include 
+        let query= Product.find(queryItems).select("name ratings totalRating price") 
 
+        //sort
         if(req.query.sort){
                                //&sort=ratings,price
             query = query.sort(req.query.sort.split(",").join(" "))   
         } 
 
+        //fields from requiest
+/*         if(req.query.fields){
+            query=query.select(req.query.fields.split(",").join(" "))
+        }else{
+            //for removing __v property from the documents in defualt fields
+            query=query.select("-__v")
+        } */
+
+        //pagenation
+        const page= +req.query.page || 1
+        const limit= +req.query.limit || 4
+        const skip= (page-1)*limit
+        query= query.skip(skip).limit(limit)
+
+        //handle error if skip is graterthan count of collections 
+        if(req.query.page){
+            const docs= await Product.countDocuments()
+            if(skip>=docs){
+                throw new Error("data not present")
+            }
+        }
+        
+        //geting collection respons
         let products=await query;
 
-        res.status(201).json({
+        //passing to response
+        res.status(200).json({
             status:"success",
             length:products.length,
             data:{

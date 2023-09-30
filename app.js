@@ -1,9 +1,8 @@
 const express =require("express")
-const router=require("./routers/productRoters.js")
+const productRouter=require("./routers/productRoters.js")
 
 const app = express()
 app.use(express.json())
 
-
-app.use('/Product',router)
+app.use('/Product',productRouter)
 module.exports=app
