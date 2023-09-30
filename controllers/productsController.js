@@ -65,7 +65,7 @@ exports.getProducts= async(req,res)=>{
         //geting collection respons
         let products=await query;
 
-        //passing to response
+        //give response
         res.status(200).json({
             status:"success",
             length:products.length,

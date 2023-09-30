@@ -1,8 +1,9 @@
-const app=require("./app")
 const dotenv =require("dotenv")
-const mongoose=require("mongoose")
-dotenv.config({path:'./config.env'})
 const morgan=require("morgan")
+const mongoose=require("mongoose")
+const app=require("./app")
+
+dotenv.config({path:'./config.env'})
 
 const conectMongoDb= async ()=>{
     try {
